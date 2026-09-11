@@ -37,7 +37,7 @@ export function AddTransactionDialog({ open, onOpenChange, onAdd }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-sm">
-          <form onSubmit={handleSubmit}></form>
+          <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add Transaction</DialogTitle>
             <DialogDescription>
@@ -101,8 +101,8 @@ export function AddTransactionDialog({ open, onOpenChange, onAdd }) {
             <DialogClose render={<Button variant="outline">Cancel</Button>} />
             <Button type="submit">Add Transaction</Button>
           </DialogFooter>
+          </form>
         </DialogContent>
-      </form>
     </Dialog>
   )
 }

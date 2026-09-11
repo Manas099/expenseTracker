@@ -25,17 +25,15 @@ return updatedTransactions
 })
 }
   return (
-<>
-<div className='flex justify-between items-center bg-white h-16 shadowmd'>
-<div className='pl-5 pt-5 text-xl w-50'>
-<h1>Transaction</h1>
-</div>
-<div className="p-4">
-<div className="flex items-center justify-between mb-4">
-<Button onClick={() => setDialogOpen(true)}>
-<Plus className="w-4 h-4 mr-2" />
-Add Transaction
-
+    <><div className='flex justify-between items-center bg-white h-16  shadow-md'>
+      <div className='pl-5 pt-5 text-xl  w-50'>
+        <h1>Transaction</h1>
+      </div>
+      <div className="p-4">
+      <div className="flex items-center justify-between mb-4">
+        <Button onClick={() => setDialogOpen(true)}>
+          <Plus className="w-4 h-4 mr-2" />
+          Add Transaction
         </Button>
       </div>
       <AddTransactionDialog
@@ -62,23 +60,50 @@ Add Transaction
               <th className='py-3 px-4 text-sm font-medium border-gray-300 '>Action</th>
             </tr>
           </thead>
-          <tbody>
-               <tr className='border-b border-gray-200 dark:border-gray-700 text-center'>
-              <td>06/28</td>
-              <td>Monthly pay </td>
-              <td> Salary</td>
-              <td> +$5000 </td>
-              <td className='flex pl-4 justify-center gap-2 pr-4'> <Pencil /> <Trash2 /></td>
-            </tr>
-            <tr className='border-b border-gray-200 dark:border-gray-700 text-center'>
-              <td>06/27</td>
-              <td>Uber Rider</td>
-              <td>Transit</td>
-              <td> -$24</td>
-              <td className='flex pl-4 justify-center gap-2 pr-4'> <Pencil /> <Trash2 /></td>
-            </tr>
-           </tbody>
-          
+         <tbody>
+{transactions.map((transaction) => (
+<tr
+key={transaction.id}
+className="border-b border-gray-200 dark:border-gray-700 text-center"
+>
+<td className="py-3 px-4">
+{transaction.date}
+</td>
+<td className="py-3 px-4">
+{transaction.description}
+</td>
+<td className="py-3 px-4">
+{transaction.category}
+</td>
+<td
+className={`py-3 px-4 font-medium {
+transaction.type === "Credit"
+? "text-green-600"
+: "text-red-600"
+}`}
+>
+{transaction.type === "Credit" ? "+" : "-"}₹
+{Math.abs(transaction.amount)}
+</td>
+<td className="py-3 px-4">
+<div className="flex justify-center gap-3">
+<button
+className="cursor-pointer"
+onClick={() => console.log("Edit:", transaction)}
+>
+<Pencil size={18} />
+</button>
+<button
+className="cursor-pointer"
+onClick={() => console.log("Delete:", transaction)}
+>
+<Trash2 size={18} />
+</button>
+</div>
+</td>
+</tr>
+))}
+</tbody>
         </table>
       </div>
       </>

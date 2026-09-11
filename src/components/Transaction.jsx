@@ -5,22 +5,37 @@ import { Button } from "@/components/ui/button"
 import {AddTransactionDialog} from './Popup/Addtrans' 
 
 export default function Transaction () {
-  const [transactions, setTransactions] = useState([])
-  const [dialogOpen, setDialogOpen] = useState(false)
+ const [transactions, setTransactions] = useState(() => {
+const savedTransactions = localStorage.getItem("transactions")
+return savedTransactions ? JSON.parse(savedTransactions) : []
+})
+
+const [dialogOpen, setDialogOpen] = useState(false)
 
 const handleAddTransaction = (newTx) => {
-  setTransactions((prev) => [newTx, ...prev])
- }
+ setTransactions((prev) => {
+const updatedTransactions = [newTx, ...prev]
+localStorage.setItem(
+"transactions",
+JSON.stringify(updatedTransactions)
+)
+
+console.log("Transactions:", updatedTransactions)
+return updatedTransactions
+})
+}
   return (
-    <><div className='flex justify-between items-center bg-white h-16  shadow-md'>
-      <div className='pl-5 pt-5 text-xl  w-50'>
-        <h1>Transaction</h1>
-      </div>
-      <div className="p-4">
-      <div className="flex items-center justify-between mb-4">
-        <Button onClick={() => setDialogOpen(true)}>
-          <Plus className="w-4 h-4 mr-2" />
-          Add Transaction
+<>
+<div className='flex justify-between items-center bg-white h-16 shadowmd'>
+<div className='pl-5 pt-5 text-xl w-50'>
+<h1>Transaction</h1>
+</div>
+<div className="p-4">
+<div className="flex items-center justify-between mb-4">
+<Button onClick={() => setDialogOpen(true)}>
+<Plus className="w-4 h-4 mr-2" />
+Add Transaction
+
         </Button>
       </div>
       <AddTransactionDialog

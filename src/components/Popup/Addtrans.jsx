@@ -36,8 +36,8 @@ export function AddTransactionDialog({ open, onOpenChange, onAdd }) {
 }
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <form onSubmit={handleSubmit}>
         <DialogContent className="sm:max-w-sm">
+          <form onSubmit={handleSubmit}></form>
           <DialogHeader>
             <DialogTitle>Add Transaction</DialogTitle>
             <DialogDescription>
